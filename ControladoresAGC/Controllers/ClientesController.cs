@@ -9,5 +9,11 @@ namespace ControladoresAGC.Controllers
 {
     public class ClientesController : ApiController
     {
+        public bool hola()
+        {
+            return true;
+        }
     }
+
+   
 }
