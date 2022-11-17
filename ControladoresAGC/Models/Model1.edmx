@@ -1,0 +1,719 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AGCComercialModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="RFC_Cli" />
+          </Key>
+          <Property Name="RFC_Cli" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+          <Property Name="Direccion" Type="nvarchar(max)" />
+          <Property Name="Telefono" Type="nvarchar(max)" />
+          <Property Name="Correo" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CotizacionVentas">
+          <Key>
+            <PropertyRef Name="Folio" />
+          </Key>
+          <Property Name="Folio" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RFC_Cli" Type="nvarchar" MaxLength="128" />
+          <Property Name="IDProducto" Type="nvarchar" MaxLength="128" />
+          <Property Name="IDUsuario" Type="nvarchar" MaxLength="128" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+          <Property Name="Precio" Type="real" Nullable="false" />
+          <Property Name="Total" Type="real" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Remision_FolioRemision" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Facturas">
+          <Key>
+            <PropertyRef Name="FolioFac" />
+          </Key>
+          <Property Name="FolioFac" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FolioRemision" Type="nvarchar(max)" />
+          <Property Name="PrecioUni" Type="real" Nullable="false" />
+          <Property Name="Importe" Type="real" Nullable="false" />
+          <Property Name="Subtotal" Type="real" Nullable="false" />
+          <Property Name="IVA" Type="real" Nullable="false" />
+          <Property Name="Total" Type="real" Nullable="false" />
+          <Property Name="FechaHora" Type="datetime" Nullable="false" />
+          <Property Name="MetodoPago" Type="nvarchar(max)" />
+          <Property Name="FormaPago" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Pedidoes">
+          <Key>
+            <PropertyRef Name="PedidoID" />
+          </Key>
+          <Property Name="PedidoID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RFC" Type="nvarchar" MaxLength="128" />
+          <Property Name="IDProducto" Type="nvarchar" MaxLength="128" />
+          <Property Name="IDUsuario" Type="nvarchar" MaxLength="128" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="PrecioUnitario" Type="real" Nullable="false" />
+          <Property Name="Total" Type="real" Nullable="false" />
+          <Property Name="ClabeBancaria" Type="bigint" Nullable="false" />
+          <Property Name="FechaInicio" Type="datetime" Nullable="false" />
+          <Property Name="FechaVencimiento" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Productoes">
+          <Key>
+            <PropertyRef Name="IDProducto" />
+          </Key>
+          <Property Name="IDProducto" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+          <Property Name="Precio" Type="real" Nullable="false" />
+          <Property Name="Categoria" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Proveedors">
+          <Key>
+            <PropertyRef Name="RFC" />
+          </Key>
+          <Property Name="RFC" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Empresa" Type="nvarchar(max)" />
+          <Property Name="RazonSocial" Type="nvarchar(max)" />
+          <Property Name="Contacto" Type="nvarchar(max)" />
+          <Property Name="Categoria" Type="nvarchar(max)" />
+          <Property Name="Giro" Type="nvarchar(max)" />
+          <Property Name="Telefono" Type="nvarchar(max)" />
+          <Property Name="Correo" Type="nvarchar(max)" />
+          <Property Name="Direccion" Type="nvarchar(max)" />
+          <Property Name="Zona" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Remisions">
+          <Key>
+            <PropertyRef Name="FolioRemision" />
+          </Key>
+          <Property Name="FolioRemision" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Folio" Type="nvarchar(max)" />
+          <Property Name="Responsable" Type="nvarchar(max)" />
+          <Property Name="FechaEntrega" Type="datetime" Nullable="false" />
+          <Property Name="CotizacionVenta_Folio" Type="nvarchar" MaxLength="128" />
+          <Property Name="CotizacionVentas_Folio" Type="nvarchar" MaxLength="128" />
+          <Property Name="Factura_FolioFac" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IDUsuario" />
+          </Key>
+          <Property Name="IDUsuario" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+          <Property Name="NomUsuario" Type="nvarchar(max)" />
+          <Property Name="Contraseña" Type="nvarchar(max)" />
+          <Property Name="Correo" Type="nvarchar(max)" />
+          <Property Name="Perfil" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_dbo_CotizacionVentas_dbo_Clientes_RFC_Cli">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="CotizacionVentas" Type="Self.CotizacionVentas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="RFC_Cli" />
+            </Principal>
+            <Dependent Role="CotizacionVentas">
+              <PropertyRef Name="RFC_Cli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CotizacionVentas_dbo_Productoes_IDProducto">
+          <End Role="Productoes" Type="Self.Productoes" Multiplicity="0..1" />
+          <End Role="CotizacionVentas" Type="Self.CotizacionVentas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productoes">
+              <PropertyRef Name="IDProducto" />
+            </Principal>
+            <Dependent Role="CotizacionVentas">
+              <PropertyRef Name="IDProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CotizacionVentas_dbo_Remisions_Remision_FolioRemision">
+          <End Role="Remisions" Type="Self.Remisions" Multiplicity="0..1" />
+          <End Role="CotizacionVentas" Type="Self.CotizacionVentas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Remisions">
+              <PropertyRef Name="FolioRemision" />
+            </Principal>
+            <Dependent Role="CotizacionVentas">
+              <PropertyRef Name="Remision_FolioRemision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CotizacionVentas_dbo_Usuarios_IDUsuario">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="CotizacionVentas" Type="Self.CotizacionVentas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="CotizacionVentas">
+              <PropertyRef Name="IDUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Pedidoes_dbo_Productoes_IDProducto">
+          <End Role="Productoes" Type="Self.Productoes" Multiplicity="0..1" />
+          <End Role="Pedidoes" Type="Self.Pedidoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productoes">
+              <PropertyRef Name="IDProducto" />
+            </Principal>
+            <Dependent Role="Pedidoes">
+              <PropertyRef Name="IDProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Pedidoes_dbo_Proveedors_RFC">
+          <End Role="Proveedors" Type="Self.Proveedors" Multiplicity="0..1" />
+          <End Role="Pedidoes" Type="Self.Pedidoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedors">
+              <PropertyRef Name="RFC" />
+            </Principal>
+            <Dependent Role="Pedidoes">
+              <PropertyRef Name="RFC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Pedidoes_dbo_Usuarios_IDUsuario">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Pedidoes" Type="Self.Pedidoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Pedidoes">
+              <PropertyRef Name="IDUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Remisions_dbo_CotizacionVentas_CotizacionVenta_Folio">
+          <End Role="CotizacionVentas" Type="Self.CotizacionVentas" Multiplicity="0..1" />
+          <End Role="Remisions" Type="Self.Remisions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CotizacionVentas">
+              <PropertyRef Name="Folio" />
+            </Principal>
+            <Dependent Role="Remisions">
+              <PropertyRef Name="CotizacionVenta_Folio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Remisions_dbo_CotizacionVentas_CotizacionVentas_Folio">
+          <End Role="CotizacionVentas" Type="Self.CotizacionVentas" Multiplicity="0..1" />
+          <End Role="Remisions" Type="Self.Remisions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CotizacionVentas">
+              <PropertyRef Name="Folio" />
+            </Principal>
+            <Dependent Role="Remisions">
+              <PropertyRef Name="CotizacionVentas_Folio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Remisions_dbo_Facturas_Factura_FolioFac">
+          <End Role="Facturas" Type="Self.Facturas" Multiplicity="0..1" />
+          <End Role="Remisions" Type="Self.Remisions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Facturas">
+              <PropertyRef Name="FolioFac" />
+            </Principal>
+            <Dependent Role="Remisions">
+              <PropertyRef Name="Factura_FolioFac" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AGCComercialModelStoreContainer">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CotizacionVentas" EntityType="Self.CotizacionVentas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Facturas" EntityType="Self.Facturas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pedidoes" EntityType="Self.Pedidoes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Productoes" EntityType="Self.Productoes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proveedors" EntityType="Self.Proveedors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Remisions" EntityType="Self.Remisions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_CotizacionVentas_dbo_Clientes_RFC_Cli" Association="Self.FK_dbo_CotizacionVentas_dbo_Clientes_RFC_Cli">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="CotizacionVentas" EntitySet="CotizacionVentas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CotizacionVentas_dbo_Productoes_IDProducto" Association="Self.FK_dbo_CotizacionVentas_dbo_Productoes_IDProducto">
+            <End Role="Productoes" EntitySet="Productoes" />
+            <End Role="CotizacionVentas" EntitySet="CotizacionVentas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CotizacionVentas_dbo_Remisions_Remision_FolioRemision" Association="Self.FK_dbo_CotizacionVentas_dbo_Remisions_Remision_FolioRemision">
+            <End Role="Remisions" EntitySet="Remisions" />
+            <End Role="CotizacionVentas" EntitySet="CotizacionVentas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CotizacionVentas_dbo_Usuarios_IDUsuario" Association="Self.FK_dbo_CotizacionVentas_dbo_Usuarios_IDUsuario">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="CotizacionVentas" EntitySet="CotizacionVentas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Pedidoes_dbo_Productoes_IDProducto" Association="Self.FK_dbo_Pedidoes_dbo_Productoes_IDProducto">
+            <End Role="Productoes" EntitySet="Productoes" />
+            <End Role="Pedidoes" EntitySet="Pedidoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Pedidoes_dbo_Proveedors_RFC" Association="Self.FK_dbo_Pedidoes_dbo_Proveedors_RFC">
+            <End Role="Proveedors" EntitySet="Proveedors" />
+            <End Role="Pedidoes" EntitySet="Pedidoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Pedidoes_dbo_Usuarios_IDUsuario" Association="Self.FK_dbo_Pedidoes_dbo_Usuarios_IDUsuario">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Pedidoes" EntitySet="Pedidoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Remisions_dbo_CotizacionVentas_CotizacionVenta_Folio" Association="Self.FK_dbo_Remisions_dbo_CotizacionVentas_CotizacionVenta_Folio">
+            <End Role="CotizacionVentas" EntitySet="CotizacionVentas" />
+            <End Role="Remisions" EntitySet="Remisions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Remisions_dbo_CotizacionVentas_CotizacionVentas_Folio" Association="Self.FK_dbo_Remisions_dbo_CotizacionVentas_CotizacionVentas_Folio">
+            <End Role="CotizacionVentas" EntitySet="CotizacionVentas" />
+            <End Role="Remisions" EntitySet="Remisions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Remisions_dbo_Facturas_Factura_FolioFac" Association="Self.FK_dbo_Remisions_dbo_Facturas_Factura_FolioFac">
+            <End Role="Facturas" EntitySet="Facturas" />
+            <End Role="Remisions" EntitySet="Remisions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AGCComercialModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="RFC_Cli" />
+          </Key>
+          <Property Name="RFC_Cli" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Telefono" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Correo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CotizacionVentas" Relationship="Self.FK_dbo_CotizacionVentas_dbo_Clientes_RFC_Cli" FromRole="Clientes" ToRole="CotizacionVentas" />
+        </EntityType>
+        <EntityType Name="CotizacionVentas">
+          <Key>
+            <PropertyRef Name="Folio" />
+          </Key>
+          <Property Name="Folio" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RFC_Cli" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IDProducto" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IDUsuario" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Precio" Type="Single" Nullable="false" />
+          <Property Name="Total" Type="Single" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Remision_FolioRemision" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_dbo_CotizacionVentas_dbo_Clientes_RFC_Cli" FromRole="CotizacionVentas" ToRole="Clientes" />
+          <NavigationProperty Name="Productoes" Relationship="Self.FK_dbo_CotizacionVentas_dbo_Productoes_IDProducto" FromRole="CotizacionVentas" ToRole="Productoes" />
+          <NavigationProperty Name="Remisions" Relationship="Self.FK_dbo_CotizacionVentas_dbo_Remisions_Remision_FolioRemision" FromRole="CotizacionVentas" ToRole="Remisions" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_dbo_CotizacionVentas_dbo_Usuarios_IDUsuario" FromRole="CotizacionVentas" ToRole="Usuarios" />
+          <NavigationProperty Name="Remisions1" Relationship="Self.FK_dbo_Remisions_dbo_CotizacionVentas_CotizacionVenta_Folio" FromRole="CotizacionVentas" ToRole="Remisions" />
+          <NavigationProperty Name="Remisions2" Relationship="Self.FK_dbo_Remisions_dbo_CotizacionVentas_CotizacionVentas_Folio" FromRole="CotizacionVentas" ToRole="Remisions" />
+        </EntityType>
+        <EntityType Name="Facturas">
+          <Key>
+            <PropertyRef Name="FolioFac" />
+          </Key>
+          <Property Name="FolioFac" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FolioRemision" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PrecioUni" Type="Single" Nullable="false" />
+          <Property Name="Importe" Type="Single" Nullable="false" />
+          <Property Name="Subtotal" Type="Single" Nullable="false" />
+          <Property Name="IVA" Type="Single" Nullable="false" />
+          <Property Name="Total" Type="Single" Nullable="false" />
+          <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MetodoPago" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FormaPago" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Remisions" Relationship="Self.FK_dbo_Remisions_dbo_Facturas_Factura_FolioFac" FromRole="Facturas" ToRole="Remisions" />
+        </EntityType>
+        <EntityType Name="Pedidoes">
+          <Key>
+            <PropertyRef Name="PedidoID" />
+          </Key>
+          <Property Name="PedidoID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RFC" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IDProducto" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IDUsuario" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="PrecioUnitario" Type="Single" Nullable="false" />
+          <Property Name="Total" Type="Single" Nullable="false" />
+          <Property Name="ClabeBancaria" Type="Int64" Nullable="false" />
+          <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaVencimiento" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Productoes" Relationship="Self.FK_dbo_Pedidoes_dbo_Productoes_IDProducto" FromRole="Pedidoes" ToRole="Productoes" />
+          <NavigationProperty Name="Proveedors" Relationship="Self.FK_dbo_Pedidoes_dbo_Proveedors_RFC" FromRole="Pedidoes" ToRole="Proveedors" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_dbo_Pedidoes_dbo_Usuarios_IDUsuario" FromRole="Pedidoes" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Productoes">
+          <Key>
+            <PropertyRef Name="IDProducto" />
+          </Key>
+          <Property Name="IDProducto" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Precio" Type="Single" Nullable="false" />
+          <Property Name="Categoria" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CotizacionVentas" Relationship="Self.FK_dbo_CotizacionVentas_dbo_Productoes_IDProducto" FromRole="Productoes" ToRole="CotizacionVentas" />
+          <NavigationProperty Name="Pedidoes" Relationship="Self.FK_dbo_Pedidoes_dbo_Productoes_IDProducto" FromRole="Productoes" ToRole="Pedidoes" />
+        </EntityType>
+        <EntityType Name="Proveedors">
+          <Key>
+            <PropertyRef Name="RFC" />
+          </Key>
+          <Property Name="RFC" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Empresa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RazonSocial" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Contacto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Categoria" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Giro" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Telefono" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Correo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Zona" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pedidoes" Relationship="Self.FK_dbo_Pedidoes_dbo_Proveedors_RFC" FromRole="Proveedors" ToRole="Pedidoes" />
+        </EntityType>
+        <EntityType Name="Remisions">
+          <Key>
+            <PropertyRef Name="FolioRemision" />
+          </Key>
+          <Property Name="FolioRemision" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Folio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Responsable" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FechaEntrega" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CotizacionVenta_Folio" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CotizacionVentas_Folio" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Factura_FolioFac" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CotizacionVentas" Relationship="Self.FK_dbo_CotizacionVentas_dbo_Remisions_Remision_FolioRemision" FromRole="Remisions" ToRole="CotizacionVentas" />
+          <NavigationProperty Name="CotizacionVentas1" Relationship="Self.FK_dbo_Remisions_dbo_CotizacionVentas_CotizacionVenta_Folio" FromRole="Remisions" ToRole="CotizacionVentas" />
+          <NavigationProperty Name="CotizacionVentas2" Relationship="Self.FK_dbo_Remisions_dbo_CotizacionVentas_CotizacionVentas_Folio" FromRole="Remisions" ToRole="CotizacionVentas" />
+          <NavigationProperty Name="Facturas" Relationship="Self.FK_dbo_Remisions_dbo_Facturas_Factura_FolioFac" FromRole="Remisions" ToRole="Facturas" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IDUsuario" />
+          </Key>
+          <Property Name="IDUsuario" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NomUsuario" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Contraseña" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Correo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Perfil" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CotizacionVentas" Relationship="Self.FK_dbo_CotizacionVentas_dbo_Usuarios_IDUsuario" FromRole="Usuarios" ToRole="CotizacionVentas" />
+          <NavigationProperty Name="Pedidoes" Relationship="Self.FK_dbo_Pedidoes_dbo_Usuarios_IDUsuario" FromRole="Usuarios" ToRole="Pedidoes" />
+        </EntityType>
+        <Association Name="FK_dbo_CotizacionVentas_dbo_Clientes_RFC_Cli">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="CotizacionVentas" Type="Self.CotizacionVentas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="RFC_Cli" />
+            </Principal>
+            <Dependent Role="CotizacionVentas">
+              <PropertyRef Name="RFC_Cli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CotizacionVentas_dbo_Productoes_IDProducto">
+          <End Role="Productoes" Type="Self.Productoes" Multiplicity="0..1" />
+          <End Role="CotizacionVentas" Type="Self.CotizacionVentas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productoes">
+              <PropertyRef Name="IDProducto" />
+            </Principal>
+            <Dependent Role="CotizacionVentas">
+              <PropertyRef Name="IDProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CotizacionVentas_dbo_Remisions_Remision_FolioRemision">
+          <End Role="Remisions" Type="Self.Remisions" Multiplicity="0..1" />
+          <End Role="CotizacionVentas" Type="Self.CotizacionVentas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Remisions">
+              <PropertyRef Name="FolioRemision" />
+            </Principal>
+            <Dependent Role="CotizacionVentas">
+              <PropertyRef Name="Remision_FolioRemision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CotizacionVentas_dbo_Usuarios_IDUsuario">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="CotizacionVentas" Type="Self.CotizacionVentas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="CotizacionVentas">
+              <PropertyRef Name="IDUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Remisions_dbo_CotizacionVentas_CotizacionVenta_Folio">
+          <End Role="CotizacionVentas" Type="Self.CotizacionVentas" Multiplicity="0..1" />
+          <End Role="Remisions" Type="Self.Remisions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CotizacionVentas">
+              <PropertyRef Name="Folio" />
+            </Principal>
+            <Dependent Role="Remisions">
+              <PropertyRef Name="CotizacionVenta_Folio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Remisions_dbo_CotizacionVentas_CotizacionVentas_Folio">
+          <End Role="CotizacionVentas" Type="Self.CotizacionVentas" Multiplicity="0..1" />
+          <End Role="Remisions" Type="Self.Remisions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CotizacionVentas">
+              <PropertyRef Name="Folio" />
+            </Principal>
+            <Dependent Role="Remisions">
+              <PropertyRef Name="CotizacionVentas_Folio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Remisions_dbo_Facturas_Factura_FolioFac">
+          <End Role="Facturas" Type="Self.Facturas" Multiplicity="0..1" />
+          <End Role="Remisions" Type="Self.Remisions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Facturas">
+              <PropertyRef Name="FolioFac" />
+            </Principal>
+            <Dependent Role="Remisions">
+              <PropertyRef Name="Factura_FolioFac" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Pedidoes_dbo_Productoes_IDProducto">
+          <End Role="Productoes" Type="Self.Productoes" Multiplicity="0..1" />
+          <End Role="Pedidoes" Type="Self.Pedidoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productoes">
+              <PropertyRef Name="IDProducto" />
+            </Principal>
+            <Dependent Role="Pedidoes">
+              <PropertyRef Name="IDProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Pedidoes_dbo_Proveedors_RFC">
+          <End Role="Proveedors" Type="Self.Proveedors" Multiplicity="0..1" />
+          <End Role="Pedidoes" Type="Self.Pedidoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedors">
+              <PropertyRef Name="RFC" />
+            </Principal>
+            <Dependent Role="Pedidoes">
+              <PropertyRef Name="RFC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Pedidoes_dbo_Usuarios_IDUsuario">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Pedidoes" Type="Self.Pedidoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Pedidoes">
+              <PropertyRef Name="IDUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AGCComercialEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="CotizacionVentas" EntityType="Self.CotizacionVentas" />
+          <EntitySet Name="Facturas" EntityType="Self.Facturas" />
+          <EntitySet Name="Pedidoes" EntityType="Self.Pedidoes" />
+          <EntitySet Name="Productoes" EntityType="Self.Productoes" />
+          <EntitySet Name="Proveedors" EntityType="Self.Proveedors" />
+          <EntitySet Name="Remisions" EntityType="Self.Remisions" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <AssociationSet Name="FK_dbo_CotizacionVentas_dbo_Clientes_RFC_Cli" Association="Self.FK_dbo_CotizacionVentas_dbo_Clientes_RFC_Cli">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="CotizacionVentas" EntitySet="CotizacionVentas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CotizacionVentas_dbo_Productoes_IDProducto" Association="Self.FK_dbo_CotizacionVentas_dbo_Productoes_IDProducto">
+            <End Role="Productoes" EntitySet="Productoes" />
+            <End Role="CotizacionVentas" EntitySet="CotizacionVentas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CotizacionVentas_dbo_Remisions_Remision_FolioRemision" Association="Self.FK_dbo_CotizacionVentas_dbo_Remisions_Remision_FolioRemision">
+            <End Role="Remisions" EntitySet="Remisions" />
+            <End Role="CotizacionVentas" EntitySet="CotizacionVentas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CotizacionVentas_dbo_Usuarios_IDUsuario" Association="Self.FK_dbo_CotizacionVentas_dbo_Usuarios_IDUsuario">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="CotizacionVentas" EntitySet="CotizacionVentas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Remisions_dbo_CotizacionVentas_CotizacionVenta_Folio" Association="Self.FK_dbo_Remisions_dbo_CotizacionVentas_CotizacionVenta_Folio">
+            <End Role="CotizacionVentas" EntitySet="CotizacionVentas" />
+            <End Role="Remisions" EntitySet="Remisions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Remisions_dbo_CotizacionVentas_CotizacionVentas_Folio" Association="Self.FK_dbo_Remisions_dbo_CotizacionVentas_CotizacionVentas_Folio">
+            <End Role="CotizacionVentas" EntitySet="CotizacionVentas" />
+            <End Role="Remisions" EntitySet="Remisions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Remisions_dbo_Facturas_Factura_FolioFac" Association="Self.FK_dbo_Remisions_dbo_Facturas_Factura_FolioFac">
+            <End Role="Facturas" EntitySet="Facturas" />
+            <End Role="Remisions" EntitySet="Remisions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Pedidoes_dbo_Productoes_IDProducto" Association="Self.FK_dbo_Pedidoes_dbo_Productoes_IDProducto">
+            <End Role="Productoes" EntitySet="Productoes" />
+            <End Role="Pedidoes" EntitySet="Pedidoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Pedidoes_dbo_Proveedors_RFC" Association="Self.FK_dbo_Pedidoes_dbo_Proveedors_RFC">
+            <End Role="Proveedors" EntitySet="Proveedors" />
+            <End Role="Pedidoes" EntitySet="Pedidoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Pedidoes_dbo_Usuarios_IDUsuario" Association="Self.FK_dbo_Pedidoes_dbo_Usuarios_IDUsuario">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Pedidoes" EntitySet="Pedidoes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AGCComercialModelStoreContainer" CdmEntityContainer="AGCComercialEntities">
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="AGCComercialModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="RFC_Cli" ColumnName="RFC_Cli" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CotizacionVentas">
+            <EntityTypeMapping TypeName="AGCComercialModel.CotizacionVentas">
+              <MappingFragment StoreEntitySet="CotizacionVentas">
+                <ScalarProperty Name="Folio" ColumnName="Folio" />
+                <ScalarProperty Name="RFC_Cli" ColumnName="RFC_Cli" />
+                <ScalarProperty Name="IDProducto" ColumnName="IDProducto" />
+                <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Remision_FolioRemision" ColumnName="Remision_FolioRemision" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Facturas">
+            <EntityTypeMapping TypeName="AGCComercialModel.Facturas">
+              <MappingFragment StoreEntitySet="Facturas">
+                <ScalarProperty Name="FolioFac" ColumnName="FolioFac" />
+                <ScalarProperty Name="FolioRemision" ColumnName="FolioRemision" />
+                <ScalarProperty Name="PrecioUni" ColumnName="PrecioUni" />
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+                <ScalarProperty Name="IVA" ColumnName="IVA" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+                <ScalarProperty Name="MetodoPago" ColumnName="MetodoPago" />
+                <ScalarProperty Name="FormaPago" ColumnName="FormaPago" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pedidoes">
+            <EntityTypeMapping TypeName="AGCComercialModel.Pedidoes">
+              <MappingFragment StoreEntitySet="Pedidoes">
+                <ScalarProperty Name="PedidoID" ColumnName="PedidoID" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="IDProducto" ColumnName="IDProducto" />
+                <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="PrecioUnitario" ColumnName="PrecioUnitario" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="ClabeBancaria" ColumnName="ClabeBancaria" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Productoes">
+            <EntityTypeMapping TypeName="AGCComercialModel.Productoes">
+              <MappingFragment StoreEntitySet="Productoes">
+                <ScalarProperty Name="IDProducto" ColumnName="IDProducto" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proveedors">
+            <EntityTypeMapping TypeName="AGCComercialModel.Proveedors">
+              <MappingFragment StoreEntitySet="Proveedors">
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="Empresa" ColumnName="Empresa" />
+                <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+                <ScalarProperty Name="Contacto" ColumnName="Contacto" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Giro" ColumnName="Giro" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Zona" ColumnName="Zona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Remisions">
+            <EntityTypeMapping TypeName="AGCComercialModel.Remisions">
+              <MappingFragment StoreEntitySet="Remisions">
+                <ScalarProperty Name="FolioRemision" ColumnName="FolioRemision" />
+                <ScalarProperty Name="Folio" ColumnName="Folio" />
+                <ScalarProperty Name="Responsable" ColumnName="Responsable" />
+                <ScalarProperty Name="FechaEntrega" ColumnName="FechaEntrega" />
+                <ScalarProperty Name="CotizacionVenta_Folio" ColumnName="CotizacionVenta_Folio" />
+                <ScalarProperty Name="CotizacionVentas_Folio" ColumnName="CotizacionVentas_Folio" />
+                <ScalarProperty Name="Factura_FolioFac" ColumnName="Factura_FolioFac" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="AGCComercialModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="NomUsuario" ColumnName="NomUsuario" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Perfil" ColumnName="Perfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
