@@ -34,4 +34,19 @@ namespace ControladoresAGC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pedidoes> Pedidoes { get; set; }
     }
+
+    public class UsuariosDTO
+    {
+        public string IDUsuario { get; set; }
+
+        public string Nombre { get; set; }
+
+        public string NomUsuario { get; set; }
+
+        public string Contraseña { get; set; }
+
+        public string Correo { get; set; }
+
+        public string Perfil { get; set; }
+    }
 }

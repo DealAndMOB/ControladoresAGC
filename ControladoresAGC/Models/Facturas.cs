@@ -38,4 +38,27 @@ namespace ControladoresAGC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Remisions> Remisions { get; set; }
     }
+
+    public class FacturasDTO
+    {
+        public string FolioFac { get; set; }
+
+        public string FolioRemision { get; set; }
+
+        public float PrecioUni { get; set; }
+
+        public float Importe { get; set; }
+
+        public float Subtotal { get; set; }
+
+        public float IVA { get; set; }
+
+        public float Total { get; set; }
+
+        public DateTime FechaHora { get; set; }
+
+        public string MetodoPago { get; set; }
+
+        public string FormaPago { get; set; }
+    }
 }

@@ -41,4 +41,21 @@ namespace ControladoresAGC.Models
 
         public virtual Facturas Facturas { get; set; }
     }
+
+    public class RemisionesDTO
+    {
+        public string FolioRemision { get; set; }
+
+        public string Folio { get; set; }
+
+        public string Responsable { get; set; }
+
+        public DateTime FechaEntrega { get; set; }
+
+        public string CotizacionVenta_Folio { get; set; }
+
+        public string CotizacionVentas_Folio { get; set; }
+
+        public string Factura_FolioFac { get; set; }
+    }
 }

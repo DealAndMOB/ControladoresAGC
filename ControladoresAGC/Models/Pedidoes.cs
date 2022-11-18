@@ -38,4 +38,27 @@ namespace ControladoresAGC.Models
 
         public virtual Usuarios Usuarios { get; set; }
     }
+
+    public class pedidosDTO
+    {
+        public string PedidoID { get; set; }
+
+        public string RFC { get; set; }
+
+        public string IDProducto { get; set; }
+
+        public string IDUsuario { get; set; }
+
+        public int Cantidad { get; set; }
+
+        public float PrecioUnitario { get; set; }
+
+        public float Total { get; set; }
+
+        public long ClabeBancaria { get; set; }
+
+        public DateTime FechaInicio { get; set; }
+
+        public DateTime FechaVencimiento { get; set; }
+    }
 }
